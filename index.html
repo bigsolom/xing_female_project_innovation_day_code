@@ -125,6 +125,7 @@
         player.anims.play('turn');
 
         gameOver = true;
+        // restartGame();
       }
 
       function collectStar(player, star){
@@ -150,6 +151,16 @@
             bomb.allowGravity = false;
 
         }
+      }
+
+      function restartGame(gameObj){
+        gameObj.cameras.main.fadeFrom(2000, Phaser.Math.Between(50, 255), Phaser.Math.Between(50, 255), Phaser.Math.Between(50, 255));
+
+        gameObj.cameras.main.on('camerafadeoutcomplete', function () {
+
+            this.scene.restart();
+
+        }, gameObj);
       }
 
       function update ()
@@ -178,6 +189,7 @@
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-330);
+            // restartGame(this);
         }
       }
     </script>
