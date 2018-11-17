@@ -13,7 +13,7 @@
       physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0 },
+            gravity: { y: 200 },
             debug: true
         }
       },
@@ -25,6 +25,8 @@
       };
       var score = 0;
       var scoreText;
+      var timerText;
+      var timer = 0;
       var game = new Phaser.Game(config);
 
       function preload ()
@@ -35,7 +37,7 @@
           this.load.image('star', 'assets/star.png');
           this.load.image('bomb', 'assets/bomb.png');
           this.load.spritesheet('dude',
-              'assets/dude.png',
+              'images/1. emma in boots front.png',
               { frameWidth: 32, frameHeight: 48 }
           );
       }
@@ -60,7 +62,8 @@
         // platforms.create(50, 470, 'ground');
 
         // the player
-        player = this.physics.add.sprite(25, 690, 'dude');
+        player = this.physics.add.sprite(25, 520, 'dude');
+        player.setScale(3);
 
         this.physics.add.collider(player, platforms);
 
@@ -104,8 +107,9 @@
         // adding a callback method when starts collide
         this.physics.add.overlap(player, stars, collectStar, null, this);
 
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        scoreText = this.add.text(16, 16, 'Points: 0', { fontSize: '32px', fill: '#000' });
 
+        timerText = this.add.text(216, 16, 'Timer: 0', { fontSize: '32px', fill: '#000' });
 
         // physics (dynamic by default) group for bombs
         bombs = this.physics.add.group();
@@ -115,6 +119,9 @@
 
         // collider between bombs and the player including a callback
         this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+
+        clock = new Phaser.Time.Clock(this);
       }
 
       function hitBomb(player, bomb){
@@ -130,9 +137,9 @@
 
       function collectStar(player, star){
         star.disableBody(true, true);
-        score += 10
+        score += 1;
 
-        scoreText.setText('score: ' + score)
+        scoreText.setText('Points: ' + score)
 
         if (stars.countActive(true) === 0)
         {
@@ -171,19 +178,19 @@
         {
             player.setVelocityX(-150);
 
-            player.anims.play('left', true);
+            //player.anims.play('left', true);
         }
         else if (cursors.right.isDown)
         {
             player.setVelocityX(150);
 
-            player.anims.play('right', true);
+          //  player.anims.play('right', true);
         }
         else
         {
             player.setVelocityX(0);
 
-            player.anims.play('turn');
+         //   player.anims.play('turn');
         }
 
         if (cursors.up.isDown)
@@ -196,9 +203,58 @@
         {
             player.setVelocityY(0);
 
-            player.anims.play('turn');
+           // player.anims.play('turn');
         }
+        startStopTimer();
       }
+
+            /* Timer for Game
+      From: https://www.youtube.com/watch?v=kDnfrlK2CLg */
+
+      // Variables for timer
+      //var timerText;
+      //var timer = 0;
+
+      /* Start and stop timer*/
+      function startStopTimer(){
+        //if(running == 0){
+          //running = 1;
+          timerText.setText('Timer: ' + clock.now);
+         // increment();
+        //} else {
+          //running = 0;
+       // }
+      }
+
+      // Reset timer
+      function resetTimer(){
+        //running = 0;
+        timer = 0;
+        startStopTimer()
+      }
+
+      /* Increment function to add the time to the timer
+      and increment it every second*/
+      function increment(){
+        //if(running == 1){
+          setTimeout(function(){
+            timer++;
+            var mins = Math.floor(timer/10/60);
+            var secs = Math.floor(timer/10);
+            var tenths = timer % 10;
+
+            if(mins < 10){
+              mins = "0" + mins;
+            }
+            if(secs < 10){
+              secs = "0" + secs;
+            }
+
+            timer = mins + ':' + secs + ':' + "0" + tenths;
+            timerText.setText('Timer: ' + timer);
+          }, 100);
+        }
+      //}
     </script>
 
 </body>
