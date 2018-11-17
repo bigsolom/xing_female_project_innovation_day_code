@@ -50,11 +50,15 @@
 
         platforms = this.physics.add.staticGroup();
 
-        platforms.create(400, 678, 'ground').setScale(3).refreshBody();
-
-        platforms.create(600, 400, 'ground');
-        platforms.create(50, 250, 'ground');
-        platforms.create(750, 220, 'ground');
+        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        platforms.create(400, 80, 'ground').setScale(2,1).refreshBody();
+        platforms.create(400, 490, 'ground').setScale(0.75,3).refreshBody();
+        platforms.create(400, 300, 'ground').setScale(0.5,3).refreshBody();
+        platforms.create(50, 450, 'ground').setScale(0.5,3).refreshBody();
+        platforms.create(100, 250, 'ground').setScale(0.2,5).refreshBody();
+        platforms.create(700, 190, 'ground').setScale(0.5,3).refreshBody();
+        platforms.create(650, 390, 'ground').setScale(0.25,3).refreshBody();
+        // platforms.create(50, 470, 'ground');
 
         // the player
         player = this.physics.add.sprite(25, 520, 'dude');
