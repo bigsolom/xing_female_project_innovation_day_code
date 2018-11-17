@@ -30,7 +30,7 @@
       function preload ()
       {
         console.log('preload')
-          this.load.image('sky', 'assets/sky.png');
+          this.load.image('sky', 'assets/bg1-1.jpg');
           this.load.image('ground', 'assets/platform.png');
           this.load.image('star', 'assets/star.png');
           this.load.image('bomb', 'assets/bomb.png');
@@ -44,22 +44,23 @@
       {
         console.log('create')
         // the world
-        this.add.image(0, 0, 'sky').setOrigin(0,0);
+        img = this.add.image(0, 0, 'sky').setOrigin(0,0);
+        img.setDisplaySize(900,1000);
 
         platforms = this.physics.add.staticGroup();
 
-        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-        platforms.create(400, 80, 'ground').setScale(2,1).refreshBody();
-        platforms.create(400, 490, 'ground').setScale(0.75,3).refreshBody();
-        platforms.create(400, 300, 'ground').setScale(0.5,3).refreshBody();
-        platforms.create(50, 450, 'ground').setScale(0.5,3).refreshBody();
-        platforms.create(100, 250, 'ground').setScale(0.2,5).refreshBody();
-        platforms.create(700, 190, 'ground').setScale(0.5,3).refreshBody();
-        platforms.create(650, 390, 'ground').setScale(0.25,3).refreshBody();
+        platforms.create(400, 750, 'ground').setScale(6.30, 2).refreshBody();
+        platforms.create(500, 90, 'ground').setScale(6.30,1).refreshBody();
+        platforms.create(600, 640, 'ground').setScale(1,3).refreshBody();
+        platforms.create(400, 400, 'ground').setScale(0.5,3).refreshBody();
+        platforms.create(50, 550, 'ground').setScale(0.5,3).refreshBody();
+      //  platforms.create(100, 350, 'ground').setScale(0.2,5).refreshBody();
+         platforms.create(600, 190, 'ground').setScale(2,2).refreshBody();
+        platforms.create(650, 490, 'ground').setScale(0.25,3).refreshBody();
         // platforms.create(50, 470, 'ground');
 
         // the player
-        player = this.physics.add.sprite(400, 600, 'dude');
+        player = this.physics.add.sprite(25, 690, 'dude');
 
         this.physics.add.collider(player, platforms);
 
